@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ServiGH — Ghana's Trusted Service Marketplace</title>
+  <meta name="description" content="Find, book, and trust verified service providers in Ghana. Electricians, barbers, mechanics, photographers, and more — all in one place." />
+
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Ghana-inspired palette: gold, green, red, deep charcoal */
+      --gold: #FCD116;
+      --gold-dark: #d4af0a;
+      --green: #006B3F;
+      --green-light: #0a8f55;
+      --red: #CE1126;
+      --charcoal: #1a1a1a;
+      --charcoal-soft: #2a2a2a;
+      --cream: #fdfbf6;
+      --gray: #6b6b6b;
+      --gray-light: #e8e6e0;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- NAVIGATION ---------- */
+    nav {
+      background: var(--white);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--charcoal);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .logo .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: inline-block;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--charcoal);
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: var(--white);
+      box-shadow: 0 4px 12px rgba(0,107,63,0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--green-light);
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      padding: 56px 20px 40px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--cream) 0%, #fff8e1 100%);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--charcoal);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero h1 .highlight {
+      color: var(--green);
+    }
+
+    .hero p.subtitle {
+      font-size: 16px;
+      color: var(--gray);
+      max-width: 480px;
+      margin: 0 auto 28px;
+    }
+
+    /* ---------- SEARCH BAR ---------- */
+    .search-box {
+      max-width: 520px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 14px;
+      padding: 6px;
+      display: flex;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 14px 16px;
+      font-size: 15px;
+      background: transparent;
+      color: var(--charcoal);
+    }
+
+    .search-box input::placeholder {
+      color: #999;
+    }
+
+    .search-box button {
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      padding: 0 22px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* ---------- TRUST STRIP ---------- */
+    .trust-strip {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      font-size: 13px;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    .trust-strip span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ---------- SECTION ---------- */
+    section {
+      padding: 44px 20px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .section-sub {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+
+    /* ---------- CATEGORY GRID ---------- */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .category-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 18px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      border: 1px solid var(--gray-light);
+    }
+
+    .category-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.09);
+    }
+
+    .category-emoji {
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .category-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+
+    .category-count {
+      font-size: 11px;
+      color: var(--gray);
+    }
+
+    /* ---------- PROVIDER CARDS ---------- */
+    .provider-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .provider-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      border: 1px solid var(--gray-light);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .provider-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.09);
+    }
+
+    .provider-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .provider-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .provider-name {
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      background: var(--green);
+      color: var(--white);
+      border-radius: 50%;
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+
+    .provider-meta {
+      font-size: 12.5px;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .rating {
+      color: var(--charcoal);
+      font-weight: 600;
+    }
+
+    .rating .star {
+      color: var(--gold-dark);
+    }
+
+    .provider-price {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--green);
+      margin-top: 6px;
+    }
+
+    /* ---------- WHY / TRUST SECTION ---------- */
+    .why-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .why-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 18px;
+      border-left: 4px solid var(--gold);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+
+    .why-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .why-card p {
+      font-size: 13.5px;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    /* ---------- PROVIDER CTA ---------- */
+    .provider-cta {
+      background: var(--charcoal);
+      color: var(--white);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      margin: 20px auto;
+      max-width: 680px;
+    }
+
+    .provider-cta h2 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .provider-cta p {
+      font-size: 14px;
+      color: #bbb;
+      margin-bottom: 20px;
+    }
+
+    .provider-cta .btn-gold {
+      background: var(--gold);
+      color: var(--charcoal);
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      background: var(--white);
+      padding: 32px 20px 40px;
+      text-align: center;
+      border-top: 1px solid var(--gray-light);
+      margin-top: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+
+    .footer-links a {
+      color: var(--gray);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--green);
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: #999;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (min-width: 600px) {
+      .hero h1 { font-size: 44px; }
+      .category-grid { grid-template-columns: repeat(4, 1fr); }
+      .why-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav>
+    <div class="logo">
+      <span class="dot"></span> ServiGH
+    </div>
+    <div class="nav-buttons">
+      <a href="#" class="btn btn-ghost">Sign in</a>
+      <a href="#" class="btn btn-primary">Sign up</a>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="hero-badge">🇬🇭 GHANA'S TRUSTED SERVICE MARKETPLACE</div>
+    <h1>
+      Find a trusted professional.<br />
+      <span class="highlight">Book them without the stress.</span>
+    </h1>
+    <p class="subtitle">
+      Verified electricians, barbers, mechanics, photographers, cleaners and more — all in one place.
+    </p>
+
+    <div class="search-box">
+      <input type="text" placeholder="What service do you need?" />
+      <button>Search</button>
+    </div>
+
+    <div class="trust-strip">
+      <span>✓ Verified providers</span>
+      <span>⭐ Real reviews</span>
+      <span>📱 Mobile Money</span>
+    </div>
+  </header>
+
+  <!-- ============ CATEGORIES ============ -->
+  <section>
+    <h2 class="section-title">Browse by category</h2>
+    <p class="section-sub">Thousands of services across Ghana</p>
+
+    <div class="category-grid">
+      <div class="category-card">
+        <div class="category-emoji">🔧</div>
+        <div>
+          <div class="category-name">Home Repairs</div>
+          <div class="category-count">Plumbers, electricians</div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-emoji">💇</div>
+        <div>
+          <div class="category-name">Beauty</div>
+          <div class="category-count">Barbers, makeup</div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-emoji">🚗</div>
+        <div>
+          <div class="category-name">Automotive</div>
+          <div class="category-count">Mechanics, car wash</div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-emoji">📸</div>
+        <div>
+          <div class="category-name">Events</div>
+          <div class="category-count">Photography, DJs</div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-emoji">💻</div>
+        <div>
+          <div class="category-name">Technology</div>
+          <div class="category-count">Phone & laptop repair</div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-emoji">📚</div>
+        <div>
+          <div class="category-name">Tutors</div>
+          <div class="category-count">Private lessons</div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-emoji">⚖️</div>
+        <div>
+          <div class="category-name">Professional</div>
+          <div class="category-count">Lawyers, accountants</div>
+        </div>
+      </div>
+
+      <div class="category-card">
+        <div class="category-emoji">🧹</div>
+        <div>
+          <div class="category-name">Cleaning</div>
+          <div class="category-count">Home & office</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED PROVIDERS ============ -->
+  <section>
+    <h2 class="section-title">Trusted providers near you</h2>
+    <p class="section-sub">Verified, reviewed, and ready to work</p>
+
+    <div class="provider-list">
+
+      <a href="#" class="provider-card">
+        <div class="provider-avatar">🔧</div>
+        <div class="provider-info">
+          <div class="provider-name">
+            Kwame Electricals
+            <span class="verified-badge">✓</span>
+          </div>
+          <div class="provider-meta">
+            <span class="rating"><span class="star">★</span> 4.9 (126)</span>
+            <span>📍 Accra</span>
+          </div>
+          <div class="provider-price">From GH₵150</div>
+        </div>
+      </a>
+
+      <a href="#" class="provider-card">
+        <div class="provider-avatar">💇</div>
+        <div class="provider-info">
+          <div class="provider-name">
+            Fresh Cuts Barbershop
+            <span class="verified-badge">✓</span>
+          </div>
+          <div class="provider-meta">
+            <span class="rating"><span class="star">★</span> 4.8 (204)</span>
+            <span>📍 Kumasi</span>
+          </div>
+          <div class="provider-price">From GH₵30</div>
+        </div>
+      </a>
+
+      <a href="#" class="provider-card">
+        <div class="provider-avatar">📸</div>
+        <div class="provider-info">
+          <div class="provider-name">
+            Ama Photography
+            <span class="verified-badge">✓</span>
+          </div>
+          <div class="provider-meta">
+            <span class="rating"><span class="star">★</span> 5.0 (89)</span>
+            <span>📍 Accra</span>
+          </div>
+          <div class="provider-price">From GH₵500</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ WHY US ============ -->
+  <section>
+    <h2 class="section-title">Why Ghanaians trust ServiGH</h2>
+    <p class="section-sub">Built for real problems, not just downloads</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>✓ Verified Providers</h3>
+        <p>We check Ghana Cards and business details before showing the verified badge.</p>
+      </div>
+
+      <div class="why-card">
+        <h3>⭐ Real Reviews</h3>
+        <p>Only customers who actually completed a booking can leave a review.</p>
+      </div>
+
+      <div class="why-card">
+        <h3>💰 Clear Pricing</h3>
+        <p>See prices upfront. No surprises, no haggling on the day.</p>
+      </div>
+
+      <div class="why-card">
+        <h3>📱 Mobile Money</h3>
+        <p>Pay deposits and full amounts with MTN MoMo, Vodafone Cash, and more.</p>
+      </div>
+
+      <div class="why-card">
+        <h3>📅 Easy Booking</h3>
+        <p>Choose a date and time. Get reminders so you never miss an appointment.</p>
+      </div>
+
+      <div class="why-card">
+        <h3>🛡️ Dispute Support</h3>
+        <p>If something goes wrong, our team steps in to resolve it fairly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROVIDER CTA ============ -->
+  <div class="provider-cta">
+    <h2>Are you a service provider?</h2>
+    <p>Join Ghana's fastest-growing service marketplace and get more customers.</p>
+    <button class="btn-gold">List your service — it's free</button>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">How it works</a>
+      <a href="#">For providers</a>
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-copy">
+      © 2026 ServiGH. Made in Ghana 🇬🇭
+    </div>
+  </footer>
+
+</body>
+  </html>
